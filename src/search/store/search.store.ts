@@ -1,5 +1,4 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
-
 import { SearchStatus } from '../enums/search-status.enum';
 import { SearchJob } from '../ interfaces/search-job.interface';
 
@@ -21,6 +20,7 @@ export interface ISearchJobRepository {
  * In-memory implementation for testing/development.
  * Replace with real implementation (Redis, Mongo, etc.) in production.
  */
+
 @Injectable()
 export class InMemorySearchJobRepository implements ISearchJobRepository {
   private jobs: Map<string, SearchJob> = new Map();
@@ -103,4 +103,5 @@ export class SearchStoreService {
   clearAll(): Promise<void> {
     return this.repo.clearAll();
   }
+
 }

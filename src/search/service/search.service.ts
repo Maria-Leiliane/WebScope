@@ -1,9 +1,9 @@
-import { CreateSearchDto } from './dto/create-search.dto';
-import { Injectable } from '@nestjs/common';
-import { SearchStoreService } from './store/search.store';
-import { SearchStatus } from './enums/search-status.enum';
-import { SearchJob } from './ interfaces/search-job.interface';
-import { SearchResult } from './ interfaces/search-result.interface';
+import { CreateSearchDto } from '../dto/create-search.dto';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { SearchStatus } from '../enums/search-status.enum';
+import { SearchJob } from '../ interfaces/search-job.interface';
+import { SearchResult } from '../ interfaces/search-result.interface';
+import { SearchStoreService } from '../store/search.store';
 
 
 @Injectable()
@@ -54,6 +54,12 @@ export class SearchService {
       });
     }
   }
-
   // ...future methods
+  async findById(id: string): Promise<SearchJob> {
+    const job = await this.searchStore.get(id);
+    if (!job) {
+      throw new NotFoundException(`Search job with id ${id} not found`);
+    }
+    return job;
+  }
 }
