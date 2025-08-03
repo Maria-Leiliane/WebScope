@@ -29,6 +29,7 @@ Web Scop is an API that performs asynchronous searches on websites based on user
 
 ## 📂 Files
 
+```bash
 src/
 ├── app.module.ts <-- Application root module
 ├── main.ts <-- Entry point
@@ -40,10 +41,26 @@ src/
 │ ├── interfaces/ <-- ISearchJobRepository, SearchJob, SearchResult, etc.
 │ └── enums/ <-- SearchStatus
 ├── shared/ <-- Pipes, decorators, exceptions, generic utils
+```
+## ▶️ Running Locally
 
-## 🧪 Tests
-
-Running tests with Jest:
+1.Install dependencies
 
 ```bash
-npm run test
+npm install
+```
+
+2. Nest Build ens Start the API
+
+```bash
+nest build
+```
+```bash
+nest start --watch
+```
+
+3. Access the API
+
+```bash
+http://localhost:4580
+```
