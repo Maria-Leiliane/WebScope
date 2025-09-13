@@ -1,19 +1,26 @@
 import { Module } from '@nestjs/common';
 import { SearchController } from './search/controller/search.controller';
 import { SearchService } from './search/service/search.service';
-import { InMemorySearchJobRepository, SearchStoreService } from './search/store/search.store';
 import { SearchPresenter } from './search/presenter/search.presenter';
-
+import { PrismaService } from './prisma/prisma.service';
+import { SEARCH_JOB_REPOSITORY } from './search/store/search.tokens';
+import { PostgresSearchJobRepository } from './search/store/postgres.repository';
+import { CrawlerModule } from './crawler/crawler.module';
+import { CrawlerService } from './crawler/crawler.service';
 
 @Module({
-  imports: [],
+  imports: [CrawlerModule],
   controllers: [SearchController],
-  providers: [SearchService, SearchStoreService,  SearchPresenter,
+  providers: [
+    SearchService,
+    SearchPresenter,
+    CrawlerService,
+    PrismaService,
     {
-      provide: 'SearchJobRepository',           // custom token used in @Inject()
-      useClass: InMemorySearchJobRepository,        // interface concrete implementation
+      provide: SEARCH_JOB_REPOSITORY,
+      useClass: PostgresSearchJobRepository,
     },
   ],
-  exports: [SearchService]
+  exports: [SearchService, CrawlerService],
 })
 export class AppModule {}
