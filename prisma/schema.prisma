@@ -1,0 +1,36 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Model for (SearchJob)
+model SearchJob {
+  id        String   @id @default(cuid()) // Cuid() fro generation unique Id
+  keyword   String
+  status    String   // Enum map 'SearchStatus' in string
+  createdAt DateTime @default(now())
+
+  // Relation definition: One for many
+  results   SearchResult[]
+}
+
+// Model for (SearchResult)
+model SearchResult {
+  id      String    @id @default(cuid())
+  url     String
+  snippet String?
+  foundAt DateTime?
+  depth   Int?
+  fromUrl String?
+
+  // Foreign key for relation with SearchJob
+  searchJobId String
+  searchJob   SearchJob @relation(fields: [searchJobId], references: [id])
+}
