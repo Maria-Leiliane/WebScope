@@ -1,66 +1,85 @@
 # Web Scop API
 
-> API under development for asynchronous keyword tracking on websites, focusing on clean architecture and good engineering practices.
+> An API for asynchronous keyword tracking on websites, built with NestJS and focusing on clean architecture. It features PostgreSQL persistence, Redis caching, and a real-time web crawler.
 
 ## 🚀 Purpose
 
-Web Scop is an API that performs asynchronous searches on websites based on user-provided terms. It returns the URLs where the keywords were found, simulating a content monitoring and web crawling system.
+Web Scop is an API that performs asynchronous searches on websites based on user-provided keywords and a target URL. It returns the URLs where the keywords were found, backed by a persistent database and a performance-enhancing cache layer.
 
 ## ⚙️ Technologies
 
-- NestJS with TypeScript
-- Modular architecture (Controller, Service, Store)
-- SOLID and Clean Architecture principles
-- Validation with DTOs and enums
-- Automated testing with Jest
-- In-memory storage (persistence simulation)
-- Kafka and Redis-ready
-- Git Flow for lifecycle organization
+- **Framework**: NestJS with TypeScript
+- **Architecture**: Modular (Controller, Service, Repository), SOLID, Clean Architecture
+- **Database**: PostgreSQL with Prisma ORM for persistence
+- **Caching**: Redis with `@nestjs/cache-manager` for performance optimization
+- **Web Crawling**: Axios for making HTTP requests to external sites
+- **Validation**: `class-validator` for robust DTO validation
+- **API Documentation**: Swagger (OpenAPI) for interactive documentation
+- **Containerization**: Docker and Docker Compose for easy environment setup
 
 ## 🔧 Features
 
-- [x] Start a new search with a keyword (`POST /search`)
-- [x] Query status and results (`GET /search/:id`)
-- [x] Timeout and search status control
-- [x] Validations and exception handling
-- [x] Redis integration (coming soon)
+- [x] Start a new search with a keyword and URL (`POST /search`)
+- [x] Query status and results of a specific search (`GET /search/:id`)
+- [x] List all previous search jobs (`GET /search`)
+- [x] Delete a search job (`DELETE /search/:id`)
+- [x] **PostgreSQL Persistence** with Prisma
+- [x] **Redis Caching** for read-heavy operations
+- [x] Real-time, asynchronous web crawling of a target URL
+- [x] Robust validation and exception handling
+- [x] Interactive API documentation via Swagger
 - [ ] Kafka queue integration (coming soon)
-- [ ] Database persistence (future)
 
-## 📂 Files
-
-```bash
-src/
-├── app.module.ts <-- Application root module
-├── main.ts <-- Entry point
-├── search/
-│ ├── controller/ <-- SearchController
-│ ├── service/ <-- SearchService
-│ ├── store/ <-- SearchStoreService + repository implementation
-│ ├── dto/ <-- Search DTOs (Request/Response)
-│ ├── interfaces/ <-- ISearchJobRepository, SearchJob, SearchResult, etc.
-│ └── enums/ <-- SearchStatus
-├── shared/ <-- Pipes, decorators, exceptions, generic utils
-```
 ## ▶️ Running Locally
 
-1.Install dependencies
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or later)
+- [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/)
+
+### 1\. Clone & Install Dependencies
 
 ```bash
+git clone git@github.com:Maria-Leiliane/WebScope.git
+cd WebScope
 npm install
 ```
 
-2. Nest Build ens Start the API
+### 2\. Configure Environment Variables
+
+Create a `.env` file in the root of the project by copying the example file:
 
 ```bash
-nest build
-```
-```bash
-nest start --watch
+cp .env.example .env
 ```
 
-3. Access the API
+The default values in the `.env` file are configured to work with the `docker-compose.yml` setup below.
+
+### 3\. Start Infrastructure Containers
+
+In your terminal, run the following command to start the PostgreSQL and Redis containers in the background:
 
 ```bash
-http://localhost:4580
+docker-compose up -d
 ```
+
+### 4\. Run Database Migrations
+
+Apply the database schema to your newly created PostgreSQL container using Prisma:
+
+```bash
+npx prisma migrate dev
+```
+
+### 5\. Start the API
+
+Now you can start the NestJS application:
+
+```bash
+npm run start:dev
+```
+
+### 6\. Access the API & Docs
+
+- **API Base URL**: `http://localhost:3000` (or the port you configured)
+- **Swagger Docs**: `http://localhost:3000/api-docs`
