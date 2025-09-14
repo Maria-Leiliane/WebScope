@@ -1,0 +1,1 @@
+export const SEARCH_JOB_REPOSITORY = Symbol('SEARCH_JOB_REPOSITORY');
