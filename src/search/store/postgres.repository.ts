@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { ISearchJobRepository } from './search.store'; // Agora importa a interface correta
+import { ISearchJobRepository } from './search.store';
 import { PrismaService } from '../../prisma/prisma.service';
 import { SearchStatus } from '../enums/search-status.enum';
 import { SearchJob as PrismaSearchJob, SearchResult as PrismaSearchResult } from '@prisma/client';
