@@ -23,7 +23,7 @@ Web Scop is an API that performs asynchronous searches on websites based on user
 - [x] Query status and results (`GET /search/:id`)
 - [x] Timeout and search status control
 - [x] Validations and exception handling
-- [ ] Redis integration (coming soon)
+- [x] Redis integration (coming soon)
 - [ ] Kafka queue integration (coming soon)
 - [ ] Database persistence (future)
 
