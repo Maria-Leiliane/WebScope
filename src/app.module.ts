@@ -7,9 +7,23 @@ import { SEARCH_JOB_REPOSITORY } from './search/store/search.tokens';
 import { PostgresSearchJobRepository } from './search/store/postgres.repository';
 import { CrawlerModule } from './crawler/crawler.module';
 import { CrawlerService } from './crawler/crawler.service';
+import { redisStore } from 'cache-manager-redis-store';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [CrawlerModule],
+  imports: [
+    CacheModule.register({
+      isGlobal: true,
+      store: () => redisStore({
+        socket: {
+          host: 'localhost',
+          port: 6379,
+        },
+        ttl: 3600,
+      }),
+    }),
+    CrawlerModule,
+  ],
   controllers: [SearchController],
   providers: [
     SearchService,
