@@ -2,7 +2,7 @@ import { Inject, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { CreateSearchDto } from '../dto/create-search.dto';
 import { SearchStatus } from '../enums/search-status.enum';
 import { ISearchJobRepository } from '../store/search.store';
-import { DomainSearchJob, DomainSearchResult } from '../domain/search-job.entity';
+import { DomainSearchJob } from '../domain/search-job.entity';
 import { CrawlerService } from '../../crawler/crawler.service';
 import { SEARCH_JOB_REPOSITORY } from '../store/search.tokens';
 import { CACHE_MANAGER, Cache } from '@nestjs/cache-manager';

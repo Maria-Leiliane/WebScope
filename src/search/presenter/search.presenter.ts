@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import { SearchResponseDto } from '../dto/search-response.dto';
-import { SearchJob } from '../ interfaces/search-job.interface';
+import { DomainSearchJob } from '../domain/search-job.entity';
 
 @Injectable()
 export class SearchPresenter {
-  toResponse(job: SearchJob): SearchResponseDto {
-    return {
-      id: job.id,
-      keyword: job.keyword,
-      status: job.status,
-      results: job.results,
-      createdAt: job.createdAt,
-    };
+  toResponse(job: DomainSearchJob): SearchResponseDto {
+    const responseDto = new SearchResponseDto();
+
+    responseDto.id = job.id;
+    responseDto.keyword = job.keyword;
+    responseDto.status = job.status;
+    responseDto.results = job.results;
+    responseDto.createdAt = job.createdAt;
+
+    return responseDto;
   }
 }

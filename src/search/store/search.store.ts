@@ -1,5 +1,5 @@
 import { SearchStatus } from '../enums/search-status.enum';
-import { DomainSearchJob } from '../domain/search-job.entity'; // Importa a fonte da verdade
+import { DomainSearchJob } from '../domain/search-job.entity';
 
 
 export interface ISearchJobRepository {
