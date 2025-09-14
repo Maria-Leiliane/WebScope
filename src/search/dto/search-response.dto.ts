@@ -1,18 +1,23 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { DomainSearchResult } from '../domain/search-job.entity';
+import { SearchStatus } from '../enums/search-status.enum';
 
 export class SearchResponseDto {
-  @ApiProperty()
+  @ApiProperty({ description: 'The unique ID of the search job.' })
   id: string;
 
-  @ApiProperty()
+  @ApiProperty({ description: 'The keyword that was searched for.' })
   keyword: string;
 
-  @ApiProperty()
-  status: string;
+  @ApiProperty({
+    description: 'The current status of the job.',
+    enum: SearchStatus,
+  })
+  status: SearchStatus;
 
-  @ApiProperty({ type: [Object] })
-  results: any[];
+  @ApiProperty({ description: 'The list of results found.' })
+  results: DomainSearchResult[];
 
-  @ApiProperty()
+  @ApiProperty({ description: 'The date and time the job was created.' })
   createdAt: Date;
 }
