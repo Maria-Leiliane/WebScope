@@ -1,6 +1,6 @@
 {
   "name": "web.project",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Asynchronous web crawler with NextJS and PostgreSQL persistence. Captures and stores links based on configurable keywords.",
   "author": "Maria Leiliane Lobo Da Silva",
   "private": "false",
